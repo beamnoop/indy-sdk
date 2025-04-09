@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "libindy"
+]
+
+[patch.crates-io]
+openssl-sys = { git = "https://github.com/sfackler/rust-openssl", branch = "master" }
+
