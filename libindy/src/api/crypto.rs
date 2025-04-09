@@ -36,10 +36,10 @@ use libc::c_char;
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_create_key(command_handle: CommandHandle,
+pub extern "C" fn indy_create_key(command_handle: CommandHandle,
                               wallet_handle: WalletHandle,
                               key_json: *const c_char,
-                              cb: Option<extern fn(command_handle_: CommandHandle,
+                              cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                    err: ErrorCode,
                                                    verkey: *const c_char)>) -> ErrorCode {
     trace!("indy_create_key: >>> wallet_handle: {:?}, key_json: {:?}", wallet_handle, key_json);
@@ -83,11 +83,11 @@ pub extern fn indy_create_key(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_set_key_metadata(command_handle: CommandHandle,
+pub  extern "C" fn indy_set_key_metadata(command_handle: CommandHandle,
                                      wallet_handle: WalletHandle,
                                      verkey: *const c_char,
                                      metadata: *const c_char,
-                                     cb: Option<extern fn(command_handle_: CommandHandle,
+                                     cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                           err: ErrorCode)>) -> ErrorCode {
     trace!("indy_set_key_metadata: >>> wallet_handle: {:?}, verkey: {:?}, metadata: {:?}", wallet_handle, verkey, metadata);
 
@@ -136,10 +136,10 @@ pub  extern fn indy_set_key_metadata(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_get_key_metadata(command_handle: CommandHandle,
+pub  extern "C" fn indy_get_key_metadata(command_handle: CommandHandle,
                                      wallet_handle: WalletHandle,
                                      verkey: *const c_char,
-                                     cb: Option<extern fn(command_handle_: CommandHandle,
+                                     cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                           err: ErrorCode,
                                                           metadata: *const c_char)>) -> ErrorCode {
     trace!("indy_get_key_metadata: >>> wallet_handle: {:?}, verkey: {:?}", wallet_handle, verkey);
@@ -184,12 +184,12 @@ pub  extern fn indy_get_key_metadata(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_sign(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_sign(command_handle: CommandHandle,
                                 wallet_handle: WalletHandle,
                                 signer_vk: *const c_char,
                                 message_raw: *const u8,
                                 message_len: u32,
-                                cb: Option<extern fn(command_handle_: CommandHandle,
+                                cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                      err: ErrorCode,
                                                      signature_raw: *const u8,
                                                      signature_len: u32)>) -> ErrorCode {
@@ -246,13 +246,13 @@ pub  extern fn indy_crypto_sign(command_handle: CommandHandle,
 /// Ledger*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_verify(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_verify(command_handle: CommandHandle,
                                   signer_vk: *const c_char,
                                   message_raw: *const u8,
                                   message_len: u32,
                                   signature_raw: *const u8,
                                   signature_len: u32,
-                                  cb: Option<extern fn(command_handle_: CommandHandle,
+                                  cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                        err: ErrorCode,
                                                        valid: bool)>) -> ErrorCode {
     trace!("indy_crypto_verify: >>> signer_vk: {:?}, message_raw: {:?}, message_len: {:?}, signature_raw: {:?}, signature_len: {:?}",
@@ -315,13 +315,13 @@ pub  extern fn indy_crypto_verify(command_handle: CommandHandle,
 /// Ledger*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_auth_crypt(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_auth_crypt(command_handle: CommandHandle,
                                       wallet_handle: WalletHandle,
                                       sender_vk: *const c_char,
                                       recipient_vk: *const c_char,
                                       msg_data: *const u8,
                                       msg_len: u32,
-                                      cb: Option<extern fn(command_handle_: CommandHandle,
+                                      cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                            err: ErrorCode,
                                                            encrypted_msg: *const u8,
                                                            encrypted_len: u32)>) -> ErrorCode {
@@ -385,12 +385,12 @@ pub  extern fn indy_crypto_auth_crypt(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_auth_decrypt(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_auth_decrypt(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         recipient_vk: *const c_char,
                                         encrypted_msg: *const u8,
                                         encrypted_len: u32,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode,
                                                              sender_vk: *const c_char,
                                                              msg_data: *const u8,
@@ -453,11 +453,11 @@ pub  extern fn indy_crypto_auth_decrypt(command_handle: CommandHandle,
 /// Ledger*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_anon_crypt(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_anon_crypt(command_handle: CommandHandle,
                                       recipient_vk: *const c_char,
                                       msg_data: *const u8,
                                       msg_len: u32,
-                                      cb: Option<extern fn(command_handle_: CommandHandle,
+                                      cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                            err: ErrorCode,
                                                            encrypted_msg: *const u8,
                                                            encrypted_len: u32)>) -> ErrorCode {
@@ -515,12 +515,12 @@ pub  extern fn indy_crypto_anon_crypt(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_crypto_anon_decrypt(command_handle: CommandHandle,
+pub  extern "C" fn indy_crypto_anon_decrypt(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         recipient_vk: *const c_char,
                                         encrypted_msg: *const u8,
                                         encrypted_len: u32,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode,
                                                              msg_data: *const u8,
                                                              msg_len: u32)>) -> ErrorCode {
@@ -621,14 +621,14 @@ pub  extern fn indy_crypto_anon_decrypt(command_handle: CommandHandle,
 /// Ledger*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_pack_message(
+pub extern "C" fn indy_pack_message(
     command_handle: CommandHandle,
     wallet_handle: WalletHandle,
     message: *const u8,
     message_len: u32,
     receiver_keys: *const c_char,
     sender: *const c_char,
-    cb: Option<extern fn(xcommand_handle: CommandHandle, err: ErrorCode, jwe_data: *const u8, jwe_len: u32)>,
+    cb: Option<extern "C" fn(xcommand_handle: CommandHandle, err: ErrorCode, jwe_data: *const u8, jwe_len: u32)>,
 ) -> ErrorCode {
     trace!("indy_pack_message: >>> wallet_handle: {:?}, message: {:?}, message_len {:?},\
             receiver_keys: {:?}, sender: {:?}", wallet_handle, message, message_len, receiver_keys, sender);
@@ -707,13 +707,13 @@ pub extern fn indy_pack_message(
 /// Ledger*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_unpack_message(
+pub extern "C" fn indy_unpack_message(
     command_handle: CommandHandle,
     wallet_handle: WalletHandle,
     jwe_data: *const u8,
     jwe_len: u32,
     cb: Option<
-        extern fn(
+        extern "C" fn(
             xcommand_handle: CommandHandle,
             err: ErrorCode,
             res_json_data : *const u8,

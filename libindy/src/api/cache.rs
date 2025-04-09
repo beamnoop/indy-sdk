@@ -29,13 +29,13 @@ use libc::c_char;
 ///  }
 /// cb: Callback that takes command result as parameter.
 #[no_mangle]
-pub extern fn indy_get_cred_def(command_handle: CommandHandle,
+pub extern "C" fn indy_get_cred_def(command_handle: CommandHandle,
                                 pool_handle: PoolHandle,
                                 wallet_handle: WalletHandle,
                                 submitter_did: *const c_char,
                                 id: *const c_char,
                                 options_json: *const c_char,
-                                cb: Option<extern fn(command_handle_: CommandHandle,
+                                cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                      err: ErrorCode,
                                                      cred_def_json: *const c_char)>) -> ErrorCode {
     trace!("indy_get_cred_def: >>> pool_handle: {:?}, wallet_handle: {:?}, submitter_did: {:?}, id: {:?}, options_json: {:?}",
@@ -87,13 +87,13 @@ pub extern fn indy_get_cred_def(command_handle: CommandHandle,
 ///  }
 /// cb: Callback that takes command result as parameter.
 #[no_mangle]
-pub extern fn indy_get_schema(command_handle: CommandHandle,
+pub extern "C" fn indy_get_schema(command_handle: CommandHandle,
                               pool_handle: PoolHandle,
                               wallet_handle: WalletHandle,
                               submitter_did: *const c_char,
                               id: *const c_char,
                               options_json: *const c_char,
-                              cb: Option<extern fn(command_handle_: CommandHandle,
+                              cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                    err: ErrorCode,
                                                    schema_json: *const c_char)>) -> ErrorCode {
     trace!("indy_get_schema: >>> pool_handle: {:?}, wallet_handle: {:?}, submitter_did: {:?}, id: {:?}, options_json: {:?}",
@@ -137,10 +137,10 @@ pub extern fn indy_get_schema(command_handle: CommandHandle,
 ///  }
 /// cb: Callback that takes command result as parameter.
 #[no_mangle]
-pub extern fn indy_purge_cred_def_cache(command_handle: CommandHandle,
+pub extern "C" fn indy_purge_cred_def_cache(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         options_json: *const c_char,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode)>) -> ErrorCode {
     trace!("indy_purge_cred_def_cache: >>> wallet_handle: {:?}, options_json: {:?}",
            wallet_handle, options_json);
@@ -182,10 +182,10 @@ pub extern fn indy_purge_cred_def_cache(command_handle: CommandHandle,
 ///  }
 /// cb: Callback that takes command result as parameter.
 #[no_mangle]
-pub extern fn indy_purge_schema_cache(command_handle: CommandHandle,
+pub extern "C" fn indy_purge_schema_cache(command_handle: CommandHandle,
                                       wallet_handle: WalletHandle,
                                       options_json: *const c_char,
-                                      cb: Option<extern fn(command_handle_: CommandHandle,
+                                      cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                            err: ErrorCode)>) -> ErrorCode {
     trace!("indy_purge_schema_cache: >>> wallet_handle: {:?}, options_json: {:?}",
            wallet_handle, options_json);

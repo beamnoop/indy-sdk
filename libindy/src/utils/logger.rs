@@ -37,11 +37,11 @@ impl LoggerState {
 }
 
 
-pub type EnabledCB = extern fn(context: *const c_void,
+pub type EnabledCB = extern "C" fn(context: *const c_void,
                                level: u32,
                                target: *const c_char) -> bool;
 
-pub type LogCB = extern fn(context: *const c_void,
+pub type LogCB = extern "C" fn(context: *const c_void,
                            level: u32,
                            target: *const c_char,
                            message: *const c_char,
@@ -49,7 +49,7 @@ pub type LogCB = extern fn(context: *const c_void,
                            file: *const c_char,
                            line: u32);
 
-pub type FlushCB = extern fn(context: *const c_void);
+pub type FlushCB = extern "C" fn(context: *const c_void);
 
 static mut CONTEXT: *const c_void = ptr::null();
 static mut ENABLED_CB: Option<EnabledCB> = None;
@@ -200,7 +200,7 @@ impl LibindyDefaultLogger {
         Ok(())
     }
 
-    extern fn enabled(_context: *const c_void,
+    extern "C" fn enabled(_context: *const c_void,
                           level: u32,
                           target: *const c_char) -> bool {
         let level = get_level(level);
@@ -214,7 +214,7 @@ impl LibindyDefaultLogger {
         log::logger().enabled(&metadata)
     }
 
-    extern fn log(_context: *const c_void,
+    extern "C" fn log(_context: *const c_void,
                       level: u32,
                       target: *const c_char,
                       args: *const c_char,
@@ -240,7 +240,7 @@ impl LibindyDefaultLogger {
         );
     }
 
-    extern fn flush(_context: *const c_void) {
+    extern "C" fn flush(_context: *const c_void) {
         log::logger().flush()
     }
 }

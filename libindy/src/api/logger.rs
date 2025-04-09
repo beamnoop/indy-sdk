@@ -20,7 +20,7 @@ use log::LevelFilter;
 /// #Returns
 /// Error code
 #[no_mangle]
-pub extern fn indy_set_logger(context: *const c_void,
+pub extern "C" fn indy_set_logger(context: *const c_void,
                               enabled: Option<EnabledCB>,
                               log: Option<LogCB>,
                               flush: Option<FlushCB>) -> ErrorCode {
@@ -55,7 +55,7 @@ pub extern fn indy_set_logger(context: *const c_void,
 /// ErrorCode::CommonInvalidParam3 is returned in case of `log` callback is missed
 /// ErrorCode::CommonInvalidParam5 is returned in case of `max_lvl` value is out of range [0-5]
 #[no_mangle]
-pub extern fn indy_set_logger_with_max_lvl(context: *const c_void,
+pub extern "C" fn indy_set_logger_with_max_lvl(context: *const c_void,
                                            enabled: Option<EnabledCB>,
                                            log: Option<LogCB>,
                                            flush: Option<FlushCB>,
@@ -85,7 +85,7 @@ pub extern fn indy_set_logger_with_max_lvl(context: *const c_void,
 /// On success returns `ErrorCode::Success`
 /// ErrorCode::CommonInvalidParam1 is returned in case of `max_lvl` value is out of range [0-5]
 #[no_mangle]
-pub extern fn indy_set_log_max_lvl(max_lvl: u32) -> ErrorCode {
+pub extern "C" fn indy_set_log_max_lvl(max_lvl: u32) -> ErrorCode {
     trace!("indy_set_log_max_lvl >>> max_lvl: {}", max_lvl);
 
     check_u32_less_or_eq!(max_lvl, LevelFilter::max() as usize as u32, ErrorCode::CommonInvalidParam1);
@@ -113,7 +113,7 @@ pub extern fn indy_set_log_max_lvl(max_lvl: u32) -> ErrorCode {
 /// #Returns
 /// Error code
 #[no_mangle]
-pub extern fn indy_set_default_logger(pattern: *const c_char) -> ErrorCode {
+pub extern "C" fn indy_set_default_logger(pattern: *const c_char) -> ErrorCode {
     trace!("indy_set_default_logger >>> pattern: {:?}", pattern);
 
     check_useful_opt_c_str!(pattern, ErrorCode::CommonInvalidParam1);
@@ -142,7 +142,7 @@ pub extern fn indy_set_default_logger(pattern: *const c_char) -> ErrorCode {
 /// #Returns
 /// Error code
 #[no_mangle]
-pub extern fn indy_get_logger(context_p: *mut *const c_void,
+pub extern "C" fn indy_get_logger(context_p: *mut *const c_void,
                               enabled_cb_p: *mut Option<EnabledCB>,
                               log_cb_p: *mut Option<LogCB>,
                               flush_cb_p: *mut Option<FlushCB>) -> ErrorCode {

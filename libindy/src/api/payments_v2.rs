@@ -24,12 +24,12 @@ use indy_api_types::validation::Validatable;
 /// get_sources_txn_json - Indy request for getting sources list for payment address
 /// payment_method - used payment method
 #[no_mangle]
-pub extern fn indy_build_get_payment_sources_with_from_request(command_handle: CommandHandle,
+pub extern "C" fn indy_build_get_payment_sources_with_from_request(command_handle: CommandHandle,
                                                                wallet_handle: WalletHandle,
                                                                submitter_did: *const c_char,
                                                                payment_address: *const c_char,
                                                                from: i64,
-                                                               cb: Option<extern fn(command_handle_: CommandHandle,
+                                                               cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                                     err: ErrorCode,
                                                                                     get_sources_txn_json: *const c_char,
                                                                                     payment_method: *const c_char)>) -> ErrorCode {
@@ -83,10 +83,10 @@ pub extern fn indy_build_get_payment_sources_with_from_request(command_handle: C
 ///      extra: <str>, // optional data from payment transaction
 ///   }]
 #[no_mangle]
-pub extern fn indy_parse_get_payment_sources_with_from_response(command_handle: CommandHandle,
+pub extern "C" fn indy_parse_get_payment_sources_with_from_response(command_handle: CommandHandle,
                                                                 payment_method: *const c_char,
                                                                 resp_json: *const c_char,
-                                                                cb: Option<extern fn(command_handle_: CommandHandle,
+                                                                cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                                      err: ErrorCode,
                                                                                      sources_json: *const c_char,
                                                                                      next: i64)>) -> ErrorCode {

@@ -8,10 +8,10 @@ use indy_utils::ctypes;
 use libc::c_char;
 
 #[no_mangle]
-pub extern fn indy_open_blob_storage_reader(command_handle: CommandHandle,
+pub extern "C" fn indy_open_blob_storage_reader(command_handle: CommandHandle,
                                             type_: *const c_char,
                                             config_json: *const c_char,
-                                            cb: Option<extern fn(command_handle_: CommandHandle,
+                                            cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                  err: ErrorCode,
                                                                  handle: IndyHandle)>) -> ErrorCode {
     trace!("indy_open_blob_storage_reader: >>> type_: {:?}, config_json: {:?}", type_, config_json);
@@ -41,10 +41,10 @@ pub extern fn indy_open_blob_storage_reader(command_handle: CommandHandle,
 }
 
 #[no_mangle]
-pub extern fn indy_open_blob_storage_writer(command_handle: CommandHandle,
+pub extern "C" fn indy_open_blob_storage_writer(command_handle: CommandHandle,
                                             type_: *const c_char,
                                             config_json: *const c_char,
-                                            cb: Option<extern fn(command_handle_: CommandHandle,
+                                            cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                  err: ErrorCode,
                                                                  handle: IndyHandle)>) -> ErrorCode {
     trace!("indy_open_blob_storage_writer: >>> type_: {:?}, config_json: {:?}", type_, config_json);

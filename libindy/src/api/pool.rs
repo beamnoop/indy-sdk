@@ -27,10 +27,10 @@ use libc::c_char;
 /// Common*
 /// Ledger*
 #[no_mangle]
-pub extern fn indy_create_pool_ledger_config(command_handle: CommandHandle,
+pub extern "C" fn indy_create_pool_ledger_config(command_handle: CommandHandle,
                                              config_name: *const c_char,
                                              config: *const c_char,
-                                             cb: Option<extern fn(command_handle_: CommandHandle,
+                                             cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                   err: ErrorCode)>) -> ErrorCode {
     trace!("indy_create_pool_ledger_config: >>> config_name: {:?}, config: {:?}", config_name, config);
 
@@ -89,10 +89,10 @@ pub extern fn indy_create_pool_ledger_config(command_handle: CommandHandle,
 /// Common*
 /// Ledger*
 #[no_mangle]
-pub extern fn indy_open_pool_ledger(command_handle: CommandHandle,
+pub extern "C" fn indy_open_pool_ledger(command_handle: CommandHandle,
                                     config_name: *const c_char,
                                     config: *const c_char,
-                                    cb: Option<extern fn(command_handle_: CommandHandle,
+                                    cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                          err: ErrorCode,
                                                          pool_handle: PoolHandle)>) -> ErrorCode {
     trace!("indy_open_pool_ledger: >>> config_name: {:?}, config: {:?}", config_name, config);
@@ -133,9 +133,9 @@ pub extern fn indy_open_pool_ledger(command_handle: CommandHandle,
 /// Common*
 /// Ledger*
 #[no_mangle]
-pub extern fn indy_refresh_pool_ledger(command_handle: CommandHandle,
+pub extern "C" fn indy_refresh_pool_ledger(command_handle: CommandHandle,
                                        handle: PoolHandle,
-                                       cb: Option<extern fn(command_handle_: CommandHandle,
+                                       cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                             err: ErrorCode)>) -> ErrorCode {
     trace!("indy_refresh_pool_ledger: >>> handle: {:?}", handle);
 
@@ -169,8 +169,8 @@ pub extern fn indy_refresh_pool_ledger(command_handle: CommandHandle,
 ///
 /// #Errors
 #[no_mangle]
-pub extern fn indy_list_pools(command_handle: CommandHandle,
-                              cb: Option<extern fn(command_handle_: CommandHandle,
+pub extern "C" fn indy_list_pools(command_handle: CommandHandle,
+                              cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                    err: ErrorCode,
                                                    pools: *const c_char)>) -> ErrorCode {
     trace!("indy_list_pools: >>>");
@@ -201,9 +201,9 @@ pub extern fn indy_list_pools(command_handle: CommandHandle,
 /// Common*
 /// Ledger*
 #[no_mangle]
-pub extern fn indy_close_pool_ledger(command_handle: CommandHandle,
+pub extern "C" fn indy_close_pool_ledger(command_handle: CommandHandle,
                                      handle: PoolHandle,
-                                     cb: Option<extern fn(command_handle_: CommandHandle,
+                                     cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                           err: ErrorCode)>) -> ErrorCode {
     trace!("indy_close_pool_ledger: >>> handle: {:?}", handle);
 
@@ -240,9 +240,9 @@ pub extern fn indy_close_pool_ledger(command_handle: CommandHandle,
 /// Common*
 /// Ledger*
 #[no_mangle]
-pub extern fn indy_delete_pool_ledger_config(command_handle: CommandHandle,
+pub extern "C" fn indy_delete_pool_ledger_config(command_handle: CommandHandle,
                                              config_name: *const c_char,
-                                             cb: Option<extern fn(command_handle_: CommandHandle,
+                                             cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                   err: ErrorCode)>) -> ErrorCode {
     trace!("indy_delete_pool_ledger_config: >>> config_name: {:?}", config_name);
 
@@ -286,9 +286,9 @@ pub extern fn indy_delete_pool_ledger_config(command_handle: CommandHandle,
 /// #Errors
 /// Common*
 #[no_mangle]
-pub extern fn indy_set_protocol_version(command_handle: CommandHandle,
+pub extern "C" fn indy_set_protocol_version(command_handle: CommandHandle,
                                         protocol_version: usize,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode)>) -> ErrorCode {
     trace!("indy_set_protocol_version: >>> protocol_version: {:?}", protocol_version);
 

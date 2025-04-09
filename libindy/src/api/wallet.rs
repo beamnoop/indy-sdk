@@ -43,7 +43,7 @@ use libc::c_char;
 /// #Returns
 /// Error code
 #[no_mangle]
-pub extern fn indy_register_wallet_storage(command_handle: CommandHandle,
+pub extern "C" fn indy_register_wallet_storage(command_handle: CommandHandle,
                                            type_: *const c_char,
                                            create: Option<WalletCreate>,
                                            open: Option<WalletOpen>,
@@ -69,7 +69,7 @@ pub extern fn indy_register_wallet_storage(command_handle: CommandHandle,
                                            get_search_total_count: Option<WalletGetSearchTotalCount>,
                                            fetch_search_next_record: Option<WalletFetchSearchNextRecord>,
                                            free_search: Option<WalletFreeSearch>,
-                                           cb: Option<extern fn(command_handle_: CommandHandle,
+                                           cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                 err: ErrorCode)>) -> ErrorCode {
     trace!("indy_register_wallet_type: >>> command_handle: {:?}, type_: {:?}, cb: {:?}",
            command_handle, type_, cb); // TODO: Log all params
@@ -183,10 +183,10 @@ pub extern fn indy_register_wallet_storage(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_create_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_create_wallet(command_handle: CommandHandle,
                                  config: *const c_char,
                                  credentials: *const c_char,
-                                 cb: Option<extern fn(command_handle_: CommandHandle,
+                                 cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                       err: ErrorCode)>) -> ErrorCode {
     trace!("indy_create_wallet: >>> command_handle: {:?}, config: {:?}, credentials: {:?}, cb: {:?}",
            command_handle, config, credentials, cb);
@@ -264,10 +264,10 @@ pub extern fn indy_create_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_open_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_open_wallet(command_handle: CommandHandle,
                                config: *const c_char,
                                credentials: *const c_char,
-                               cb: Option<extern fn(command_handle_: CommandHandle,
+                               cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                     err: ErrorCode,
                                                     wallet_handle: WalletHandle)>) -> ErrorCode {
     trace!("indy_open_wallet: >>> command_handle: {:?}, config: {:?}, credentials: {:?}, cb: {:?}",
@@ -320,10 +320,10 @@ pub extern fn indy_open_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_export_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_export_wallet(command_handle: CommandHandle,
                                  wallet_handle: WalletHandle,
                                  export_config: *const c_char,
-                                 cb: Option<extern fn(command_handle_: CommandHandle,
+                                 cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                       err: ErrorCode)>) -> ErrorCode {
     trace!("indy_export_wallet: >>> wallet_handle: {:?}, export_config: {:?}", wallet_handle, export_config);
 
@@ -396,11 +396,11 @@ pub extern fn indy_export_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_import_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_import_wallet(command_handle: CommandHandle,
                                  config: *const c_char,
                                  credentials: *const c_char,
                                  import_config: *const c_char,
-                                 cb: Option<extern fn(command_handle_: CommandHandle,
+                                 cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                       err: ErrorCode)>) -> ErrorCode {
     trace!("indy_import_wallet: >>> command_handle: {:?}, config: {:?}, credentials: {:?}, import_config: {:?}, cb: {:?}",
            command_handle, config, credentials, import_config, cb);
@@ -443,9 +443,9 @@ pub extern fn indy_import_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_close_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_close_wallet(command_handle: CommandHandle,
                                 wallet_handle: WalletHandle,
-                                cb: Option<extern fn(command_handle_: CommandHandle,
+                                cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                      err: ErrorCode)>) -> ErrorCode {
     trace!("indy_close_wallet: >>> command_handle: {:?}, wallet_handle: {:?}, cb: {:?}",
            command_handle, wallet_handle, cb);
@@ -509,10 +509,10 @@ pub extern fn indy_close_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_delete_wallet(command_handle: CommandHandle,
+pub extern "C" fn indy_delete_wallet(command_handle: CommandHandle,
                                  config: *const c_char,
                                  credentials: *const c_char,
-                                 cb: Option<extern fn(command_handle_: CommandHandle,
+                                 cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                       err: ErrorCode)>) -> ErrorCode {
     trace!("indy_delete_wallet: >>> command_handle: {:?}, config: {:?}, credentials: {:?}, cb: {:?}",
            command_handle, config, credentials, cb);
@@ -557,9 +557,9 @@ pub extern fn indy_delete_wallet(command_handle: CommandHandle,
 /// Common*
 /// Wallet*
 #[no_mangle]
-pub extern fn indy_generate_wallet_key(command_handle: CommandHandle,
+pub extern "C" fn indy_generate_wallet_key(command_handle: CommandHandle,
                                        config: *const c_char,
-                                       cb: Option<extern fn(command_handle_: CommandHandle,
+                                       cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                             err: ErrorCode,
                                                             key: *const c_char)>) -> ErrorCode {
     trace!("indy_generate_wallet_key: >>> command_handle: {:?}, config: {:?}, cb: {:?}",

@@ -12,8 +12,8 @@ use libc::c_char;
 /// #Errors
 /// Common*
 #[no_mangle]
-pub extern fn indy_collect_metrics(command_handle: CommandHandle,
-                                   cb: Option<extern fn(command_handle_: CommandHandle,
+pub extern "C" fn indy_collect_metrics(command_handle: CommandHandle,
+                                   cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                         err: ErrorCode,
                                                         metrics_json: *const c_char)>) -> ErrorCode {
     trace!("indy_collect_metrics: >>> command_handle: {:?}, cb: {:?}",

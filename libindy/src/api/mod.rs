@@ -35,7 +35,7 @@ use indy_utils::ctypes;
 /// #Errors
 /// Common*
 #[no_mangle]
-pub extern fn indy_set_runtime_config(config: *const c_char) -> ErrorCode {
+pub extern "C" fn indy_set_runtime_config(config: *const c_char) -> ErrorCode {
     trace!("indy_set_runtime_config >>> config: {:?}", config);
 
     check_useful_validatable_json!(config, ErrorCode::CommonInvalidParam1, IndyConfig);
@@ -70,7 +70,7 @@ pub extern fn indy_set_runtime_config(config: *const c_char) -> ErrorCode {
 /// }
 ///
 #[no_mangle]
-pub extern fn indy_get_current_error(error_json_p: *mut *const c_char) {
+pub extern "C" fn indy_get_current_error(error_json_p: *mut *const c_char) {
     trace!("indy_get_current_error >>> error_json_p: {:?}", error_json_p);
 
     let error = get_current_error_c_json();

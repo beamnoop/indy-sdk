@@ -52,10 +52,10 @@ use crate::domain::ledger::attrib::Endpoint;
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_create_and_store_my_did(command_handle: CommandHandle,
+pub  extern "C" fn indy_create_and_store_my_did(command_handle: CommandHandle,
                                             wallet_handle: WalletHandle,
                                             did_info: *const c_char,
-                                            cb: Option<extern fn(command_handle_: CommandHandle,
+                                            cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                  err: ErrorCode,
                                                                  did: *const c_char,
                                                                  verkey: *const c_char)>) -> ErrorCode {
@@ -115,11 +115,11 @@ pub  extern fn indy_create_and_store_my_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_replace_keys_start(command_handle: CommandHandle,
+pub  extern "C" fn indy_replace_keys_start(command_handle: CommandHandle,
                                        wallet_handle: WalletHandle,
                                        did: *const c_char,
                                        key_info: *const c_char,
-                                       cb: Option<extern fn(command_handle_: CommandHandle,
+                                       cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                             err: ErrorCode,
                                                             verkey: *const c_char)>) -> ErrorCode {
     trace!("indy_replace_keys_start: >>> wallet_handle: {:?}, did: {:?}, identity_json: {:?}", wallet_handle, did, key_info);
@@ -164,10 +164,10 @@ pub  extern fn indy_replace_keys_start(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_replace_keys_apply(command_handle: CommandHandle,
+pub  extern "C" fn indy_replace_keys_apply(command_handle: CommandHandle,
                                        wallet_handle: WalletHandle,
                                        did: *const c_char,
-                                       cb: Option<extern fn(command_handle_: CommandHandle,
+                                       cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                             err: ErrorCode)>) -> ErrorCode {
     trace!("indy_replace_keys_apply: >>> wallet_handle: {:?}, did: {:?}", wallet_handle, did);
 
@@ -221,10 +221,10 @@ pub  extern fn indy_replace_keys_apply(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_store_their_did(command_handle: CommandHandle,
+pub  extern "C" fn indy_store_their_did(command_handle: CommandHandle,
                                     wallet_handle: WalletHandle,
                                     identity_json: *const c_char,
-                                    cb: Option<extern fn(command_handle_: CommandHandle,
+                                    cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                          err: ErrorCode)>) -> ErrorCode {
     trace!("indy_store_their_did: >>> wallet_handle: {:?}, identity_json: {:?}", wallet_handle, identity_json);
 
@@ -283,11 +283,11 @@ pub  extern fn indy_store_their_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_key_for_did(command_handle: CommandHandle,
+pub extern "C" fn indy_key_for_did(command_handle: CommandHandle,
                                pool_handle: PoolHandle,
                                wallet_handle: WalletHandle,
                                did: *const c_char,
-                               cb: Option<extern fn(command_handle_: CommandHandle,
+                               cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                     err: ErrorCode,
                                                     key: *const c_char)>) -> ErrorCode {
     trace!("indy_key_for_did: >>> pool_handle: {:?}, wallet_handle: {:?}, did: {:?}", pool_handle, wallet_handle, did);
@@ -341,10 +341,10 @@ pub extern fn indy_key_for_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_key_for_local_did(command_handle: CommandHandle,
+pub extern "C" fn indy_key_for_local_did(command_handle: CommandHandle,
                                      wallet_handle: WalletHandle,
                                      did: *const c_char,
-                                     cb: Option<extern fn(command_handle_: CommandHandle,
+                                     cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                           err: ErrorCode,
                                                           key: *const c_char)>) -> ErrorCode {
     trace!("indy_key_for_local_did: >>> wallet_handle: {:?}, did: {:?}", wallet_handle, did);
@@ -389,12 +389,12 @@ pub extern fn indy_key_for_local_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_set_endpoint_for_did(command_handle: CommandHandle,
+pub extern "C" fn indy_set_endpoint_for_did(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         did: *const c_char,
                                         address: *const c_char,
                                         transport_key: *const c_char,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode)>) -> ErrorCode {
     trace!("indy_set_endpoint_for_did: >>> wallet_handle: {:?}, did: {:?}, address: {:?}, transport_key: {:?}", wallet_handle, did, address, transport_key);
 
@@ -448,11 +448,11 @@ pub extern fn indy_set_endpoint_for_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_get_endpoint_for_did(command_handle: CommandHandle,
+pub extern "C" fn indy_get_endpoint_for_did(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         pool_handle: PoolHandle,
                                         did: *const c_char,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode,
                                                              address: *const c_char,
                                                              transport_vk: *const c_char)>) -> ErrorCode {
@@ -505,11 +505,11 @@ pub extern fn indy_get_endpoint_for_did(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_set_did_metadata(command_handle: CommandHandle,
+pub extern "C" fn indy_set_did_metadata(command_handle: CommandHandle,
                                     wallet_handle: WalletHandle,
                                     did: *const c_char,
                                     metadata: *const c_char,
-                                    cb: Option<extern fn(command_handle_: CommandHandle,
+                                    cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                          err: ErrorCode)>) -> ErrorCode {
     trace!("indy_set_did_metadata: >>> wallet_handle: {:?}, did: {:?}, metadata: {:?}", wallet_handle, did, metadata);
 
@@ -558,10 +558,10 @@ pub extern fn indy_set_did_metadata(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_get_did_metadata(command_handle: CommandHandle,
+pub extern "C" fn indy_get_did_metadata(command_handle: CommandHandle,
                                     wallet_handle: WalletHandle,
                                     did: *const c_char,
-                                    cb: Option<extern fn(command_handle_: CommandHandle,
+                                    cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                          err: ErrorCode,
                                                          metadata: *const c_char)>) -> ErrorCode {
     trace!("indy_get_did_metadata: >>> wallet_handle: {:?}, did: {:?}", wallet_handle, did);
@@ -610,10 +610,10 @@ pub extern fn indy_get_did_metadata(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_get_my_did_with_meta(command_handle: CommandHandle,
+pub extern "C" fn indy_get_my_did_with_meta(command_handle: CommandHandle,
                                         wallet_handle: WalletHandle,
                                         my_did: *const c_char,
-                                        cb: Option<extern fn(command_handle_: CommandHandle,
+                                        cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                              err: ErrorCode,
                                                              did_with_meta: *const c_char)>) -> ErrorCode {
     trace!("indy_get_my_did_with_meta: >>> wallet_handle: {:?}, my_did: {:?}", wallet_handle, my_did);
@@ -660,9 +660,9 @@ pub extern fn indy_get_my_did_with_meta(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_list_my_dids_with_meta(command_handle: CommandHandle,
+pub extern "C" fn indy_list_my_dids_with_meta(command_handle: CommandHandle,
                                           wallet_handle: WalletHandle,
-                                          cb: Option<extern fn(command_handle_: CommandHandle,
+                                          cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                err: ErrorCode,
                                                                dids: *const c_char)>) -> ErrorCode {
     trace!("indy_list_my_dids_with_meta: >>> wallet_handle: {:?}", wallet_handle);
@@ -703,10 +703,10 @@ pub extern fn indy_list_my_dids_with_meta(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub  extern fn indy_abbreviate_verkey(command_handle: CommandHandle,
+pub  extern "C" fn indy_abbreviate_verkey(command_handle: CommandHandle,
                                       did: *const c_char,
                                       full_verkey: *const c_char,
-                                      cb: Option<extern fn(command_handle_: CommandHandle,
+                                      cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                            err: ErrorCode,
                                                            verkey: *const c_char)>) -> ErrorCode {
     trace!("indy_abbreviate_verkey: >>> did: {:?}, full_verkey: {:?}", did, full_verkey);
@@ -754,11 +754,11 @@ pub  extern fn indy_abbreviate_verkey(command_handle: CommandHandle,
 /// Wallet*
 /// Crypto*
 #[no_mangle]
-pub extern fn indy_qualify_did(command_handle: CommandHandle,
+pub extern "C" fn indy_qualify_did(command_handle: CommandHandle,
                                wallet_handle: WalletHandle,
                                did: *const c_char,
                                method: *const c_char,
-                               cb: Option<extern fn(command_handle_: CommandHandle,
+                               cb: Option<extern "C" fn(command_handle_: CommandHandle,
                                                                  err: ErrorCode,
                                                                  full_qualified_did: *const c_char)>) -> ErrorCode {
     trace!("indy_qualify_did: >>> wallet_handle: {:?}, did: {:?}, method: {:?}", wallet_handle, did, method);

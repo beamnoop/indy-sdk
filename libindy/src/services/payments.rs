@@ -621,94 +621,94 @@ mod cbs {
 
     use libc::c_char;
 
-    pub fn create_address_cb(cmd_handle: CommandHandle, wallet_handle: WalletHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn create_address_cb(cmd_handle: CommandHandle, wallet_handle: WalletHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                                                err: ErrorCode,
                                                                                                c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(move |cmd_handle, result| PaymentsCommand::CreateAddressAck(cmd_handle, wallet_handle, result)))
     }
 
-    pub fn add_request_fees_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn add_request_fees_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                     err: ErrorCode,
                                                                     req_with_fees_json: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::AddRequestFeesAck))
     }
 
-    pub fn parse_response_with_fees_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn parse_response_with_fees_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                             err: ErrorCode,
                                                                             c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::ParseResponseWithFeesAck))
     }
 
-    pub fn build_get_payment_sources_request_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_get_payment_sources_request_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                                      err: ErrorCode,
                                                                                      c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::BuildGetPaymentSourcesRequestAck))
     }
 
-    pub fn parse_get_payment_sources_response_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn parse_get_payment_sources_response_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                                       err: ErrorCode,
                                                                                       c_str: *const c_char,
                                                                                       num: i64) -> ErrorCode> {
         send_ack_str_i64(cmd_handle, Box::new(PaymentsCommand::ParseGetPaymentSourcesResponseAck))
     }
 
-    pub fn build_payment_req_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_payment_req_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                      err: ErrorCode,
                                                                      c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new( PaymentsCommand::BuildPaymentReqAck))
     }
 
-    pub fn parse_payment_response_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn parse_payment_response_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                           err: ErrorCode,
                                                                           c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::ParsePaymentResponseAck))
     }
 
-    pub fn build_mint_req_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_mint_req_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                   err: ErrorCode,
                                                                   c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::BuildMintReqAck))
     }
 
-    pub fn build_set_txn_fees_req_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_set_txn_fees_req_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                           err: ErrorCode,
                                                                           c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::BuildSetTxnFeesReqAck))
     }
 
-    pub fn build_get_txn_fees_req(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_get_txn_fees_req(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                        err: ErrorCode,
                                                                        c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::BuildGetTxnFeesReqAck))
     }
 
-    pub fn parse_get_txn_fees_response(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn parse_get_txn_fees_response(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                             err: ErrorCode,
                                                                             c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::ParseGetTxnFeesResponseAck))
     }
 
-    pub fn build_verify_payment_req(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn build_verify_payment_req(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                          err: ErrorCode,
                                                                          c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::BuildVerifyPaymentReqAck))
     }
 
-    pub fn parse_verify_payment_response(cmd_handle: CommandHandle) -> Option<extern fn(command_handle_: CommandHandle,
+    pub fn parse_verify_payment_response(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle_: CommandHandle,
                                                                               err: ErrorCode,
                                                                               c_str: *const c_char) -> ErrorCode> {
         send_ack_str(cmd_handle, Box::new(PaymentsCommand::ParseVerifyPaymentResponseAck))
     }
 
-    pub fn sign_with_address_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle: CommandHandle, err: ErrorCode, raw: *const u8, raw_len: u32) -> ErrorCode> {
+    pub fn sign_with_address_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle: CommandHandle, err: ErrorCode, raw: *const u8, raw_len: u32) -> ErrorCode> {
         send_array_ack(cmd_handle, Box::new(PaymentsCommand::SignWithAddressAck))
     }
 
-    pub fn verify_with_address_cb(cmd_handle: CommandHandle) -> Option<extern fn(command_handle: CommandHandle, err: ErrorCode, res: u8) -> ErrorCode> {
+    pub fn verify_with_address_cb(cmd_handle: CommandHandle) -> Option<extern "C" fn(command_handle: CommandHandle, err: ErrorCode, res: u8) -> ErrorCode> {
         send_bool_ack(cmd_handle, Box::new(PaymentsCommand::VerifyWithAddressAck))
     }
 
-    fn send_ack_str(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<String>) -> PaymentsCommand + Send>) -> Option<extern fn(command_handle: CommandHandle,
+    fn send_ack_str(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<String>) -> PaymentsCommand + Send>) -> Option<extern "C" fn(command_handle: CommandHandle,
                                                                                                                               err: ErrorCode,
                                                                                                                               c_str: *const c_char) -> ErrorCode> {
         cbs::_closure_to_cb_str(cmd_handle, Box::new(move |err, mint_req_json| -> ErrorCode {
@@ -722,7 +722,7 @@ mod cbs {
         }))
     }
 
-    fn send_ack_str_i64(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<(String, i64)>) -> PaymentsCommand + Send>) -> Option<extern fn(command_handle: CommandHandle,
+    fn send_ack_str_i64(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<(String, i64)>) -> PaymentsCommand + Send>) -> Option<extern "C" fn(command_handle: CommandHandle,
                                                                                                                                          err: ErrorCode,
                                                                                                                                          c_str: *const c_char,
                                                                                                                                          num: i64) -> ErrorCode> {
@@ -737,7 +737,7 @@ mod cbs {
         }))
     }
 
-    fn send_array_ack(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<Vec<u8>>) -> PaymentsCommand + Send>) -> Option<extern fn(command_handle: CommandHandle,
+    fn send_array_ack(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<Vec<u8>>) -> PaymentsCommand + Send>) -> Option<extern "C" fn(command_handle: CommandHandle,
                                                                                                                                  err: ErrorCode,
                                                                                                                                  raw: *const u8,
                                                                                                                                  raw_len: u32) -> ErrorCode> {
@@ -751,7 +751,7 @@ mod cbs {
             }))
     }
 
-    fn send_bool_ack(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<bool>) -> PaymentsCommand + Send>) -> Option<extern fn(command_handle: CommandHandle,
+    fn send_bool_ack(cmd_handle: CommandHandle, builder: Box<dyn Fn(CommandHandle, IndyResult<bool>) -> PaymentsCommand + Send>) -> Option<extern "C" fn(command_handle: CommandHandle,
                                                                                                                            err: ErrorCode,
                                                                                                                            result: u8)-> ErrorCode> {
         cbs::_closure_to_cb_bool(cmd_handle, Box::new(move |err, v| -> ErrorCode {
@@ -765,7 +765,7 @@ mod cbs {
     }
 
     pub fn _closure_to_cb_str(command_handle: CommandHandle, closure: Box<dyn FnMut(ErrorCode, String) -> ErrorCode + Send>)
-                              -> Option<extern fn(command_handle: CommandHandle,
+                              -> Option<extern "C" fn(command_handle: CommandHandle,
                                                   err: ErrorCode,
                                                   c_str: *const c_char) -> ErrorCode> {
         lazy_static! {
@@ -786,7 +786,7 @@ mod cbs {
     }
 
     pub fn _closure_to_cb_byte_array(command_handle: CommandHandle, closure: Box<dyn FnMut(ErrorCode, Vec<u8>) -> ErrorCode + Send>)
-                                     -> Option<extern fn(command_handle: CommandHandle, err: ErrorCode, raw: *const u8, len: u32) -> ErrorCode>{
+                                     -> Option<extern "C" fn(command_handle: CommandHandle, err: ErrorCode, raw: *const u8, len: u32) -> ErrorCode>{
         lazy_static! {
             static ref CALLBACKS: Mutex < HashMap <i32, Box <dyn FnMut(ErrorCode, Vec<u8>) -> ErrorCode + Send > >> = Default::default();
         }
@@ -805,7 +805,7 @@ mod cbs {
     }
 
     pub fn _closure_to_cb_bool(command_handle: CommandHandle, closure: Box<dyn FnMut(ErrorCode, bool) -> ErrorCode + Send>)
-                               -> Option<extern fn(command_handle: CommandHandle, err: ErrorCode, res: u8) -> ErrorCode> {
+                               -> Option<extern "C" fn(command_handle: CommandHandle, err: ErrorCode, res: u8) -> ErrorCode> {
         lazy_static! {
             static ref CALLBACKS: Mutex < HashMap <i32, Box <dyn FnMut(ErrorCode, bool) -> ErrorCode + Send > >> = Default::default();
         }
@@ -824,7 +824,7 @@ mod cbs {
     }
 
     pub fn _closure_to_cb_str_i64(command_handle: CommandHandle, closure: Box<dyn FnMut(ErrorCode, String, i64) -> ErrorCode + Send>)
-                                  -> Option<extern fn(command_handle: CommandHandle,
+                                  -> Option<extern "C" fn(command_handle: CommandHandle,
                                                       err: ErrorCode,
                                                       c_str: *const c_char,
                                                       val: i64) -> ErrorCode> {
